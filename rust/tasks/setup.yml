@@ -28,7 +28,7 @@
   systemd:
     name: rust
     state: stopped
-    daemon_reload: yes
+    #daemon_reload: yes
   become: yes
 
 - name: Install the Rust Server from steam
