@@ -36,7 +36,7 @@
 
 - name: Include Logrotate Role
   include_role:
-    name: galaxy/logrotate
+    name: logrotate
   vars:
     logrotate_scripts:
       - name: rust

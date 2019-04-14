@@ -1,0 +1,4 @@
+
+- src: https://github.com/nickhammond/ansible-logrotate.git
+  name: logrotate
+
