@@ -1,6 +1,7 @@
 ---
 
 - name: restart rsyslog
+  listen: restart rsyslog
   become: yes
   become_user: root
   service:
@@ -8,6 +9,7 @@
     state: restarted
 
 - name: Start rust
+  listen: Start rust
   become: yes
   become_user: root
   systemd:
@@ -17,6 +19,7 @@
   register: ruststarted
 
 - name: Stop rust
+  listen: Stop rust
   become: yes
   become_user: root
   systemd:
@@ -25,6 +28,7 @@
   register: ruststopped
 
 - name: Restart rust
+  listen: Restart rust
   become: yes
   become_user: root
   systemd:
