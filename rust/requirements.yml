@@ -2,5 +2,5 @@
 - src: https://github.com/nickhammond/ansible-logrotate.git
   name: logrotate
 
-- src: https://github.com/modimanz/ansible-common.git
-  name: common
+#- src: https://github.com/modimanz/ansible-common.git
+#  name: common
