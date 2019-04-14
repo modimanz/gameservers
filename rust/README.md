@@ -4,8 +4,17 @@ Author: Morgan Massens
 ## Variables
 See the defaults/main.yml file for variable
 
+## Playbook Example
+```
+- name: Add the Rust role to node
+  include_role:
+    name: gameservers/rust
+  vars:
+    steamcmd_user: steam
+```
+
 ## Starting and Stopping Rust service
-This playbook belowuses the rust role.   Limit by tags to start and stop the service
+Limit by tags to start and stop the service
 * Start
 ```ansbile setup-rust.yml --tags start```
 * Stop
