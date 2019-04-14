@@ -1,0 +1,24 @@
+#!/bin/sh
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{{ steam_user_home }}rustserver/RustDedicated_Data/Plugins/x86_64
+
+cd {{ steam_user_home }}rustserver
+nsible
+  {{ steam_user_home }}rustserver/RustDedicated -batchmode -nographics \
+  -server.ip {{ server_ip }} \
+  -server.port {{ server_port }} \
+  -rcon.ip {{ server_rcon_ip }} \
+  -rcon.port {{ server_rcon_port }} \
+  +rcon.password "{{ server_rcon_password }}" \
+  -server.maxplayers {{ server_maxplayers }} \
+  -server.hostname "{{ server_hostname }}" \
+  -server.identity "{{ server_identity }}" \
+  -server.level "{{ server_level }}" \
+  -server.seed {{ server_seed }} \
+  -server.worldsize {{ server_worldsize }} \
+  -server.saveinterval {{ server_saveinterval }} \
+  -server.globalchat {{ server_globalchat }} \
+  -server.description "{{ server_description }}" \
+  -server.headerimage "{{ server_headerimage }}" \
+  -server.url "{{ server_url }}"
+  -logfile "{{ steam_user_home }}rust-server.log"
+  echo "\nRestarting server...\n" done

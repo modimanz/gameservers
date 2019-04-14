@@ -1,0 +1,33 @@
+---
+# START THE RUST SERVER
+#- name: Start the Rust server
+#  become: yes
+#  become_user: root
+#  shell: "/home/{{ steam_user }}/bin/rustservice.sh start"
+#  args:
+#    executable: "/bin/bash"
+#    chdir: "{{ steam_user_home }}rustserver"
+#  register: ruststarted
+#  tags:
+#    - never
+#    - oldstart
+
+
+
+
+- name: Start Rust
+  debug:
+    msg: Starting Rust
+  tags:
+    - never
+    - start
+  notify:
+    - Start rust
+
+- name: Show Started Status
+  debug:
+    var: ruststarted
+  tags:
+    - never
+    - start
+    - oldstart

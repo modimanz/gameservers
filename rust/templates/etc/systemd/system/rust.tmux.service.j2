@@ -1,0 +1,27 @@
+# Systemd Service for Rust Server
+[Unit]
+Description=Rust-Server
+After=syslog.target network.target local-fs.target
+
+[Service]
+WorkingDirectory={{ steam_user_home }}rustserver
+ExecStartPre={{ steam_user_home }}bin/update.sh
+ExecStart=/usr/bin/tmux new-session -d -c {{ steam_user_home }}/rustserver -s rust-{{ steam_user }} -n rust-{{ steam_user }} "{{ steam_user_home }}bin/startrust.sh"
+ExecStop=/usr/bin/tmux send-keys -t rust-{{ steam_user }} q u i t C-m
+User={{ steam_user }}
+Group={{ steam_user }}
+Type=forking
+PIDFile=/var/run/rust-{{ steam_user }}.pid
+#KillUserProcesses=no
+KillMode=none
+RemainAfter
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=rust-{{ steam_user }}
+#Restart=on-failure
+#RestartSec=42s
+#Slice=gameserver.slice
+
+[Install]
+WantedBy=multi-user.target

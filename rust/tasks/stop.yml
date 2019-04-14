@@ -1,0 +1,31 @@
+---
+# STOP THE RUST SERVER
+#- name: Stop the Rust Server
+#  become: yes
+#  become_user: root
+#  shell: "/home/{{ steam_user }}/bin/rustservice.sh stop"
+#  args:
+#    executable: "/bin/bash"
+#    chdir: "{{ steam_user_home }}rustserver"
+#  register: ruststopped
+#  tags:
+#    - never
+#    - oldstop
+
+
+- name: Stop Rust Service
+  debug:
+    msg: Stopping the Rust Service
+  notify:
+    - Stop rust
+  tags:
+    - never
+    - stop
+
+- name: Show Stopped Status
+  debug:
+    var: ruststopped
+  tags:
+    - never
+    - stop
+    - oldstop

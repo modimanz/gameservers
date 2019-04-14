@@ -1,0 +1,39 @@
+---
+# Setup the Steam Command
+- include_role:
+    name: gameservers/steam
+  become: yes
+  vars:
+    - steamcmd_user: "{{ steam_user }}"
+
+# Setup the Rust Server
+- include: setup.yml
+  become: yes
+  become_user: '{{ steam_user }}'
+  #tags:
+  #  - identityconfig
+
+# Setup Loggin for the Server
+- include: log.yml
+  become: yes
+
+# STOP THE RUST SERVER
+- include: stop.yml
+  tags:
+    - never
+    - stop
+
+# START THE RUST SERVER
+- include: start.yml
+  tags:
+    - never
+    - start
+
+# RESTART THE RUST SERVER
+
+# STATUS OF RUST SERVER
+- include: status.yml
+  tags:
+    - never
+    - status
+

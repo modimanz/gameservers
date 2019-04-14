@@ -1,0 +1,23 @@
+#!/bin/bash
+
+sUser={{ steam_user}}
+sHome="{{ steam_user_home }}"
+
+case "$1" in
+  start)
+    start-stop-daemon --start --okondo --user $sUser --quiet --name rust_${sUser} --pidfile /var/run/rust_${sUser}.pid --background --chuid $sUser --startas /bin/bash -- -c "exec ${sHome}bin/startrust.sh > /var/log/rust-${sUser}.log 2>&1"
+    ;;
+  stop)
+    start-stop-daemon --stop --okondo --user $sUser --quiet --name rust_${sUser} --pidfile /var/run/rust_${sUser}.pid --retry=TERM/30/KILL/5
+    ;;
+  status)
+    start-stop-daemon --status --okondo --user $sUser --quiet --name rust_${sUser} --pidfile /var/run/rust_${sUser}.pid
+    ;;
+  restart)
+    start-stop-daemon --start --okondo --user $sUser --quiet --name rust_${sUser} --pidfile /var/run/rust_${sUser}.pid --exec ${sHome}bin/startrust.sh --chuid $sUser -- --daemon
+    start-stop-daemon --stop --okondo --user $sUser --quiet --name rust_${sUser} --pidfile /var/run/rust_${sUser}.pid --retry=TERM/30/KILL/5
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|restart|status}"
+    exit 1
+esac

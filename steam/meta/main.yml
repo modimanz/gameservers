@@ -1,0 +1,19 @@
+galaxy_info:
+  author: mobi8
+  description: Steam Command Line Client
+  license: license MIT
+
+  min_ansible_version: 2.0
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic # 18.04 LTS
+  galaxy_tags:
+    - steam
+    - steamcmd
+    - game
+    - gaming
+    - dedicatedserver
+
+dependencies: []

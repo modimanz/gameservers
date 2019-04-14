@@ -1,0 +1,52 @@
+---
+
+# TODO Move syslog tasks to independent role
+- name: Make sure the Lof Dir exists
+  become: yes
+  become_user: root
+  file:
+    path: "{{ steam_user_home }}log"
+    state: directory
+    recurse: yes
+    owner: syslog
+    group: "{{ steam_user }}"
+
+- name: make sure Log File Exists
+  become: yes
+  become_user: root
+  file:
+    path: "{{ steam_user_home }}log/rust.log"
+    state: touch
+    owner: syslog
+    group: "{{ steam_user }}"
+
+- name: Setup Rsyslog for rust
+  become: yes
+  become_user: root
+  template:
+    src: etc/rsyslog.d/rust-syslog.conf.j2
+    dest: "/etc/rsyslog.d/rust-{{ steam_user }}.conf"
+    owner: root
+    group: root
+  tags:
+    - install
+    - update
+  notify:
+    - restart rsyslog
+
+- name: Include Logrotate Role
+  include_role:
+    name: galaxy/logrotate
+  vars:
+    logrotate_scripts:
+      - name: rust
+        paths:
+          - "{{ steam_user_home }}log/rust.log"
+        options:
+          - weekly
+          - size 25M
+          - missingok
+          - compress
+          - deplaycompress
+          - copytruncate
+  become: yes

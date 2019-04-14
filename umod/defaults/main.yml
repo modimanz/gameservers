@@ -1,0 +1,14 @@
+---
+user: steam
+
+
+game:
+  name: rust
+  host: 127.0.0.1
+  server:
+    dir: rustserver
+    service: rust-steam
+
+downloads:
+  rust:
+    umod: https://github.com/theumod/uMod.Rust/releases/download/2.0.4185/Oxide.Rust.zip

@@ -1,0 +1,33 @@
+---
+
+- name: restart rsyslog
+  become: yes
+  become_user: root
+  service:
+    name: rsyslog
+    state: restarted
+
+- name: Start rust
+  become: yes
+  become_user: root
+  systemd:
+    name: rust
+    state: started
+    daemon_reload: yes
+  register: ruststarted
+
+- name: Stop rust
+  become: yes
+  become_user: root
+  systemd:
+    name: rust
+    state: stopped
+  register: ruststopped
+
+- name: Restart rust
+  become: yes
+  become_user: root
+  systemd:
+    name: rust
+    state: restarted
+  register: rustrestarted

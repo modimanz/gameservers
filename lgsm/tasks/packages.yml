@@ -1,0 +1,27 @@
+---
+# TODO -- sudo dpkg --add-architecture i386
+# TODO -- sudo apt update;
+
+- name: Install Required Packages
+  apt:
+    name:
+      - mailutils
+      - postfix
+      - curl
+      - wget
+      - file
+      - bzip2
+      - gzip
+      - unzip
+      - bsdmainutils
+      - python
+      - util-linux
+      - ca-certificates
+      - binutils
+      - bc
+      - jq
+      - tmux
+      - lib32gcc1
+      - libstdc++6
+      - libstdc++6:i386
+      - lib32z1

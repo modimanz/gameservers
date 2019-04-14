@@ -1,0 +1,13 @@
+---
+# TODO
+# Install Packages
+- include: packages.yml
+
+# Add User
+- include: user.yml
+  when: steamcmd_create_user
+
+# Setup The Server
+- include: setup.yml
+  become: yes
+  become_user: '{{ steamcmd_user }}'

@@ -1,0 +1,31 @@
+---
+
+# TODO Download the zip from the Git Repo into the roles ./file folder
+- name: Download the uMod Zip file for linux
+  get_url:
+    url: "{{ downloads[game['name']]['umod']}}"
+    dest: "{{ steam_user_home }}"
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
+
+# TODO Upload the zip from Local to remote host
+
+# TODO Extract the Zip in the proper location
+- name: Extract the zip file game server folder
+  unarchive:
+    src: "{{ steam_user_home }}{{ downloads[game['name']]['umod'] | basename }}"
+    dest: "{{ steam_user_home }}{{ game['server']['dir'] }}"
+    # TODO Overwrite existing files
+    owner: "{{ user }}"
+  become: yes
+  become_user: "{{ steam_user }}"
+
+
+# TODO Make sure permissions are set properly
+- name: Set Permissions on CSharpCompiler
+  file:
+    path: "{{ steam_user_home }}{{ game['server']['dir'] }}/"
+
+# TODO Make sure to set the CS plugins permissions
+#  - chmod u+x CSharpCompiler
+

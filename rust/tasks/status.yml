@@ -1,0 +1,20 @@
+---
+# Show Rust Server Status
+- name: Show Server Status
+  become: yes
+  become_user: root
+  shell: "/home/{{ steam_user }}/bin/rustservice.sh status"
+  args:
+    executable: "/bin/bash"
+    chdir: "{{ steam_user_home }}rustserver"
+  register: ruststatus
+  tags:
+    - never
+    - oldstatus
+
+- name: Show Rust Server Status
+  debug:
+    var: ruststatus
+  tags:
+    - never
+    - status

@@ -1,0 +1,23 @@
+# Systemd Service for Rust Server
+[Unit]
+Description=Rust-Server
+After=syslog.target network.target
+
+[Service]
+WorkingDirectory={{ steam_user_home }}rustserver
+ExecStartPre={{ steam_user_home }}bin/update.sh
+ExecStart=/bin/bash -c {{ steam_user_home }}bin/startrust.sh
+User={{ steam_user }}
+Group={{ steam_user }}
+Type=simple
+PIDFile=/var/run/rust-{{ steam_user }}.pid
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=rust-{{ steam_user }}
+#Restart=on-failure
+#RestartSec=42s
+#Slice=gameserver.slice
+
+[Install]
+WantedBy=multi-user.target

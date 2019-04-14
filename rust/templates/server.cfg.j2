@@ -1,0 +1,114 @@
+#################################
+# Settings You Should Change #
+###############################
+
+server.hostname {{ server_hostname }}
+server.description "{{ server_description }}"
+server.headerimage "{{ server_headerimage }}"
+server.url "{{ server_url }}"
+server.maxplayers {{ server_maxplayers }}
+server.worldsize {{ server_worldsize }}
+server.seed {{ server_seed }}
+
+rcon.password "{{ server_rcon_password }}"
+
+#################################
+# Settings That Effect Gameplay #
+################################
+{% if decay_scale is defined %}
+decay.scale {{ decay_scale }}
+{% endif %}
+{% if heli_lifetimeminutes is defined and heli_lifetimeminutes is not none %}
+heli.lifetimeminutes {{ heli_lifetimeminutes }}
+{% endif %}
+{% if heli_guns is defined %}
+heli.guns {{ heli_guns }}
+{% endif %}
+{% if heli_bulletdamagescale is defined %}
+heli.bulletdamagescale {{ heli_bulletdamagescale }}
+{% endif %}
+{% if heli_bulletaccuracy is defined %}
+heli.bulletaccuracy {{ heli_bulletaccuracy }}
+{% endif %}
+{% if server_itemdespawn is defined %}
+server.itemdespawn {{ server_itemdespawn }}
+{% endif %}
+{% if ai_think is defined %}
+ai.think {{ ai_think }}
+{% endif %}
+{% if ai_move is defined %}
+ai.move {{ ai_move }}
+{% endif %}
+{% if ai_sensetime is defined %}
+ai.sensetime {{ ai_sensetime }}
+{% endif %}
+{% if spawn_max_density is defined %}
+spawn.max_density {{ spawn_max_density }}
+{% endif %}
+{% if spawn_max_rate is defined %}
+spawn.max_rate {{ spawn_max_rate }}
+{% endif %}
+{% if spawn_min_density is defined %}
+spawn.min_density {{ spawn_min_density }}
+{% endif %}
+{% if spawn_min_rate is defined %}
+spawn.min_rate {{ spawn_min_rate }}
+{% endif %}
+{% if server_pve is defined %}
+server.pve {{ server_pve }}
+{% endif %}
+{% if server_radiation is defined %}
+server.radiation {{ server_radiation }}
+{% endif %}
+{% if server_planttick is defined %}
+server.planttick {{ server_planttick }}
+{% endif %}
+
+###########################################
+# Settings That Effect Server Performance #
+###########################################
+server.tickrate {{ server_tickrate }}
+server.saveinterval {{ server_saveinterval }}
+{% if server_compression is defined %}
+server.compression {{ server_compression }}
+{% endif %}
+{% if server_netcache is defined %}
+server.netcache {{ server_netcache }}
+{% endif %}
+{% if server_updatebatch is defined %}
+server.updatebatch
+{% endif %}
+{% if global_maxthreads is defined %}
+global.maxthreads {{ global_maxthreads }}
+{% endif %}
+
+########################################
+# Settings For Cheat & Hack Protection #
+########################################
+{% if server_secure is defined %}
+server.secure {{ server_secure }}
+{% endif %}
+{% if server_eac is defined %}
+server.eac {{ server_eac }}
+{% endif %}
+{% if antihack_enabled is defined %}
+antihack.enabled {{ antihack_enabled }}
+{% endif %}
+{% if antihack_admincheat is defined %}
+antihack.admincheat {{ antihack_admincheat }}
+{% endif %}
+{% if antihack_objectplacement is defined %}
+antihack.objectplacement {{ antihack_objectplacement }}
+{% endif %}
+{% if antihack_playerdamage is defined %}
+antihack.playerdamage {{ antihack_playerdamage }}
+{% endif %}
+{% if antihack_enforcementlevel is defined %}
+antihack.enforcementlevel {{ antihack_enforcementlevel }}
+{% endif %}
+{% if antihack_noclip_reject is defined %}
+antihack.noclip_reject {{ antihack_noclip_reject }}
+{% endif %}
+{% if antihack_debuglevel is defined %}
+antihack.debuglevel {{ antihack_debuglevel }}
+{% endif %}

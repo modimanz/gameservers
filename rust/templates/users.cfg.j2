@@ -1,0 +1,7 @@
+# Format:  command     steam_id       user_name  reason
+# Example: moderatorid 76561198420419278 "egee" "being awesome"
+#ownerid 76561197983532711 "Mobi8"
+#moderatorid 76561198152837075 "SPUGGLERS"
+{% for user in user_config %}
+{{ user.type }} {{ user.steamid }}  "{{ user.name }}"   "{{ user.description }}"
+{% endfor %}

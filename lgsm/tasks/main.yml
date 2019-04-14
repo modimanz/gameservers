@@ -1,0 +1,24 @@
+---
+
+- name: Install requirements
+  include_tasks: packages.yml
+  tags:
+    - packages
+
+# TODO -- adduser <lsgm-user>
+# TODO -- passwd <lsgm-user>
+
+# TODO -- Download linuxgsm -- wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver
+
+# TODO -- Run the Installer -- ./rustserver install
+
+
+# Commands
+#  - ./rustserver start
+#  - ./rustserver stop
+#  - ./rustserver restart
+#  - ./rustserver console -- EXIT with CTRL+b d -- CTRL+c will terminate GAME SERVER
+
+#  - ./rustserver update
+#  - ./rustserver force-update
+#  - ./rustserver validate

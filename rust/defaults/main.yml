@@ -1,0 +1,84 @@
+---
+# TODO Add a death message
+
+# Create the server in a container
+use_container: no
+container:
+  name: steam
+  user: steam
+
+setup_umod: true
+
+# Steam Variables
+steam_create_user: true
+steam_user: steam
+steam_user_home: /home/{{ steamcmd_user }}/
+steam_directory: /home/{{ steamcmd_user }}/cmd/
+steam_login_timeout: 120
+steam_steam:
+  username: anonymous
+  password: ~
+  guard: ~
+
+# Rust Server Variables
+
+server_hostname: "Mobi Gamestack Server"
+server_description: "Never Wipes ... Lies"
+server_identity: "my_server_identity"
+
+# 512x256px JPG/PNG headerimage link
+server_headerimage: "http://url.toheader"
+server_url: "http://server.url"
+server_maxplayers: 50
+# TODO Add Good Seeds
+# http://playrust.io/gallery/
+
+# original Seed: 190218:3000 - bad no power plant
+# Seed 422:3500
+
+server_seed: 422
+server_worldsize: 3500
+server_port: 28015
+server_ip: 0.0.0.0
+server_level: "Procedural Map"
+server_globalchat: true
+server_rcon_port: 28016
+server_rcon_ip: 0.0.0.0
+server_rcon_password: changemefast
+
+# Gameplay Settings
+decay_scale: 0
+
+heli_lifetimeminutes: ~
+heli_guns: ~
+heli_bulletdamagescale: 1.0
+heli_bulletaccuracy: 1.5
+
+server_itemdespawn: 600
+
+ai_think: ~
+ai_move: ~
+ai_sensetime: ~
+spawn_max_density: 1
+spawn_max_rate: 1
+spawn_min_rate: 0.5
+server_pve: ~
+server_radiation: ~
+server_planttick: ~
+
+# Settings that effect performance
+server_tickrate: 30
+server_saveinterval: 600
+#server_compression: false
+#server_updatebatch: yes
+global_maxthreads: 8
+
+# Settings for Cheat & Hack Protection
+server_secure: yes
+server_eac: true
+#antihack_enabled: true
+#antihack_admincheat: true
+#antihack_objectplacement: true
+#antihack_playerdamage: true
+#antihack_noclip_reject: true
+#antihack_debuglevel: 1

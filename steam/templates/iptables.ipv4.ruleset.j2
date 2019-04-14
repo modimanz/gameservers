@@ -1,0 +1,30 @@
+*filter
+
+# Allow all loopback (lo0) traffic and reject traffic
+# to localhost that does not originate from lo0.
+-A INPUT -i lo -j ACCEPT
+-A INPUT ! -i lo -s 127.0.0.0/8 -j REJECT
+
+# Allow ping.
+-A INPUT -p icmp -m state --state NEW --icmp-type 8 -j ACCEPT
+
+# Allow SSH connections.
+-A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
+
+# Allow the Steam client.
+-A INPUT -p udp -m udp --sport 27000:27030 --dport 1025:65355 -j ACCEPT
+-A INPUT -p udp -m udp --sport 4380 --dport 1025:65355 -j ACCEPT
+
+# Allow inbound traffic from established connections.
+# This includes ICMP error returns.
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Log what was incoming but denied (optional but useful).
+-A INPUT -m limit --limit 3/min -j LOG --log-prefix "iptables_INPUT_denied: " --log-level 7
+-A FORWARD -m limit --limit 3/min -j LOG --log-prefix "iptables_FORWARD_denied: " --log-level 7
+
+# Reject all other inbound.
+-A INPUT -j REJECT
+-A FORWARD -j REJECT
+
+COMMIT

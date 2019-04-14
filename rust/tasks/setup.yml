@@ -1,0 +1,114 @@
+---
+- name: Make the ~/bin folder
+  become: yes
+  become_user: "{{ steam_user }}"
+  file:
+    path: "{{ steam_user_home }}/bin"
+    state: directory
+  tags:
+    - install
+
+- name: Copy run scripts
+  template:
+    src: "scripts/{{ item }}.j2"
+    dest: "{{ steam_user_home }}bin/{{ item }}"
+    mode: "0770"
+  loop:
+    - run.sh
+    - update.sh
+    - startrust.sh
+    - rustservice.sh
+  tags:
+    - install
+    - update
+  notify:
+    - Stop rust
+
+- name: Stop Rust
+  systemd:
+    name: rust
+    state: stopped
+    daemon_reload: yes
+  become: yes
+
+- name: Install the Rust Server from steam
+  command: "{{ steam_user_home }}bin/update.sh"
+  async: "{{ steam_login_timeout }}"
+  poll: 5
+  register: rust_installed
+  no_log: no
+  #when: 'steamcmd.guard is none'
+  become_user: "{{ steam_user }}"
+  tags:
+    - install
+    - update
+
+- name: Copy Rust Service File
+  become: yes
+  become_user: root
+  template:
+    src: etc/systemd/system/rust.tmux.service.j2
+    #src: etc/systemd/system/rust.service.j2
+    dest: /etc/systemd/system/rust.service
+  when: rust_installed is success
+  tags:
+    - install
+    - update
+
+- name: Create the Server Map Directory
+  file:
+    path: "{{ steam_user_home }}rustserver/server/{{ server_identity }}/cfg"
+    state: directory
+    recurse: yes
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
+    mode: 0775
+  register: server_identity_created
+  tags:
+    - update
+    - install
+    - identityconfig
+
+- name: Copy the config file to the Map Directory
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ steam_user_home }}rustserver/server/{{ server_identity }}/cfg/{{ item }}"
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
+  when: server_identity_created is success
+  tags:
+    - install
+    - update
+    - identityconfig
+  loop:
+    - server.cfg
+    - users.cfg
+    - bans.cfg
+
+- name: Add the uMod Role to Rust Server
+  include_role:
+    name: gameservers/umod
+  vars:
+    user: "{{ steam_user}}"
+  when: setup_umod == true
+
+- name: Reload Systemd Daemon
+  become: yes
+  become_user: root
+  systemd:
+    daemon_reload: yes
+
+- name: Show Rust Install/Update Status
+  debug:
+    var: rust_installed
+  tags:
+    - install
+    - update
+  notify:
+    - Restart rust
+
+- name: Start Rust
+  service:
+    name: rust
+    state: started
+  become: yes
