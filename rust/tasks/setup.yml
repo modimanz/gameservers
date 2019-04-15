@@ -24,7 +24,7 @@
   notify:
     - Stop rust
 
-- name: Stop Rust
+- name: Stop Rust Task
   systemd:
     name: rust
     state: stopped

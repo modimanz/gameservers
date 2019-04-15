@@ -18,7 +18,7 @@
     daemon_reload: yes
   register: ruststarted
 
-- name: Stop rust
+- name: Stop rust Handler
   listen: Stop rust
   become: yes
   become_user: root
