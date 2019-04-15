@@ -1,0 +1,9 @@
+---
+
+# TODO Download the latest server backups
+#- name: Download the latest backup
+
+# TODO Create a share on an nfs server for saving backups as a service
+
+# TODO Create a backup service script that runs every hour - backs up
+
