@@ -1,0 +1,11 @@
+---
+# tasks file for minecraft
+- include_tasks: packages.yml
+
+- include_tasks: setup-java.yml
+
+- include_tasks: server-vanilla.yml
+  when: minecraft_flavor == "vanilla"
+
+- include_tasks: server-forge.yml
+  when: minecraft_flavor == "forge"

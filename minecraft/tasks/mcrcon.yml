@@ -1,0 +1,30 @@
+---
+
+- name: Clone the mcrcon repo
+  git:
+    repo: "{{ minecraft_mcrcon_repo }}"
+    dest: "{{ minecraft_tools_dir }}/mcrcon"
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_user }}"
+  register: mcrcon_git
+
+- name: Check if mcrcon already exists
+  stat:
+    path: "{{ minecraft_tools_dir }}/mcrcon/mcrcon"
+  register: mcrcon_file
+
+- name: Compile mcrcon
+  command: |
+    gcc -std=gnu11 -pendantic -Wall -Wextra -O2 -s -o mcrcon mcrcon.c
+  args:
+    chdir: "{{ minecraft_tools_dir }}/mcrcon"
+  register: install_mcrcon
+  become: yes
+  become_user: "{{ minecraft_user }}"
+  when: mcrcon_file.stat.exists == False or mcrcon is changed
+
+- name: Check if mcrcon already exists
+  stat:
+    path: "{{ minecraft_tools_dir }}/mcrcon/mcrcon"
+  fail_when: mcrcon_file.stat.exists == False
+  register: mcrcon_file

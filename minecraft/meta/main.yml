@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Morgan D Massens
+  description: Minecraft Server
+  company: Mobi8
+
+  license: MIT
+
+  min_ansible_version: 1.2
+
+  platforms:
+    - name: Ubuntu
+      version:
+        - 18.04
+
+  galaxy_tags: []
+
+dependencies: []

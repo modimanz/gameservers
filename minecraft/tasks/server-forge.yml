@@ -1,0 +1,11 @@
+---
+
+# TODO Download Minecraft Forge
+- name: Download Minecraft Forge Locally
+  # minecraft_forge_release
+
+# - name: TODO Extract Miecraft forge to remote server
+
+# - name: TODO Copy Service file template
+
+# - name: TODO Install forge plugins

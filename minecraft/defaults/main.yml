@@ -1,0 +1,26 @@
+---
+# defaults file for minecraft
+
+minecraft_flavor: vanilla # vanilla|forge
+minecraft_java_version: 1.8
+mincraft_forge_version: 25.0
+
+minecraft_user: minecraft
+minecraft_basedir: srv
+
+minecraft_mcrcon_install: yes # yes|no
+
+#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).
+#Thu Dec 27 03:33:56 PST 2018
+minecraft_eula: false
+
+# Download Locations
+minecraft_mcrcon_repo: https://github.com/Tiiffi/mcrcon.git
+mincraft_server_download_url: https://launcher.mojang.com/v1/objects/3737db93722a9e39eeada7c27e7aca28b144ffa7/server.jar
+
+## Computed Variables Do Not Change
+minecraft_forge_release: "https://github.com/MinecraftForge/MinecraftForge/archive/{{ minecraft_forge_version }}.tar.gz"
+minecraft_home: "/{{ minecraft_basedir }}/{{ minecraft_user}}"
+minecraft_server_dir: "{{ minecraft_home }}/server"
+minecraft_tools_dir: "{{ minecraft_home }}/tools"
+minecraft_backups_dir: "{{ minecraft_home }}/backups"

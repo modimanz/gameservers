@@ -1,0 +1,45 @@
+---
+
+- name: Make the minecraft service directories
+  file:
+    path: "{{ minecraft_home }}/{{ item }}"
+    directory: yes
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_user }}"
+    mode: "0750"
+  loop:
+    - backups
+    - tools
+    - server
+
+- name: Install mcrcon
+  include_tasks: mcrcon.yml
+  when: minecraft_mcrcon_repo == 'yes'
+
+- name: Download the Minecraft Server
+  get_url:
+    url: "{{ minecraft_server_download_url }}"
+    dest: "{{ minecraft_server_dir }}/server/{{ minecraft_server_download_url | basename }}"
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_user }}"
+
+- name: Copy EULA
+  template:
+    src: server/eula.txt.j2
+    dest: "{{ minecraft_server_dir }}/eula.txt"
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_user }}"
+
+- name: Copy the Mincraft Service File
+  template:
+    src: etc/systemd/system/minecraft.service.j2
+    dest: /etc/systemd/system/minecraft.service
+    owner: root
+    group: root
+
+- name:
+  systemd:
+    daemon_reload: yes
+
+
+

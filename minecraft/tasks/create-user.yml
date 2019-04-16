@@ -1,0 +1,17 @@
+---
+
+- name: add service user group
+  group:
+    name: "{{ minecraft_user }}"
+    state: present
+
+- name: add service user
+  user:
+    name: "{{ minecraft_user }}"
+    comment: "Minecraft user"
+    group: "{{ minecraft_user }}"
+    append: yes
+    create_home: yes
+    shell: /bin/bash
+    system: yes
+    home: "{{ minecraft_home }}"

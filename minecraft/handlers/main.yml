@@ -1,0 +1,20 @@
+---
+# handlers file for minecraft
+
+- name: Start Minecraft
+  listen: Start Minecraft
+  systemd:
+    name: minecraft
+    state: restarted
+
+- name: Stop Minecraft
+  listen: Stop Minecraft
+  systemd:
+    name: minecraft
+    state: stopped
+
+- name: Restart Minecraft
+  listen: Restart Minecraft
+  systemd:
+    name: minecraft
+    state: restarted

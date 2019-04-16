@@ -1,0 +1,14 @@
+---
+
+- name: Install required packages
+  apt:
+    name:
+      - git
+      - build-essential
+      - openjdk-8-jre-headless
+    state: present
+  become: true
+
+- name: Check Java Version
+  command: java -version
+  register: javaversion

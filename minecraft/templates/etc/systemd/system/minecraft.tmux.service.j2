@@ -1,0 +1,27 @@
+# Systemd Service for Minecraft Server
+[Unit]
+Description=Minecraft-Server
+After=syslog.target network.target local-fs.target
+
+[Service]
+WorkingDirectory={{ minecraft_server_dir }}
+#ExecStartPre={{ minecraft_server_dir }}/update.sh
+ExecStart=/usr/bin/tmux new-session -d -c {{ minecraft_server_dir }} -s mc-{{ minecraft_user }} -n mc-{{ minecraft_user }} "{{ minecraft_server_dir }}/start-minecraft.sh"
+ExecStop=/usr/bin/tmux send-keys -t mc-{{ minecraft_user }} e x i t C-m
+User={{ minecraft_user }}
+Group={{ minecraft_user }}
+Type=forking
+PIDFile=/var/run/mc-{{ minecraft_user }}.pid
+#KillUserProcesses=no
+KillMode=none
+#RemainAfter
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=mc-{{ minecraft_user }}
+#Restart=on-failure
+#RestartSec=42s
+#Slice=gameserver.slice
+
+[Install]
+WantedBy=multi-user.target

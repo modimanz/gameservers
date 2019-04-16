@@ -1,0 +1,10 @@
+---
+# vars file for minecraft
+
+mcs_max_memory: 1024M
+mcs_min_memory: 512M
+
+# Minecraft Server Variables
+mcs_rcon_port: 23888
+mcs_rcon_password: iamalittlepasswordlongandinsecure
+mcs_enable_rcon: true
