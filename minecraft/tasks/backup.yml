@@ -1,0 +1,18 @@
+---
+- name: Copy backup script
+  template:
+    src: tools/backup.sh.j2
+    dest: "{{ minecraft_tools_dir }}/backup.sh"
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_user }}"
+    mode: "0774"
+
+- name: Add Backup Cron
+  cron:
+    name: Backup Minecraft
+    job: "{{ minecraft_tools_dir }}/backup.sh"
+    hour: "{{ minecraft_backup.hour }}"
+    minute: "{{ minecraft_backup.minute }}"
+    user: "{{ minecraft_user }}"
+
+

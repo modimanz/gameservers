@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function rcon {
+    {{ minecraft_tools_dir }}/mcrcon/mcrcon -H 127.0.0.1 -P {{ mcs_rcon_port }} -p {{ mcs_rcon_password }} "$1"
+}
+
+rcon "save-off"
+rcon "save-all"
+tar -cvpzf {{ minecraft_backups_dir }}/server-$(date +%F_%R).tar.gz {{ minecraft_server_dir }}
+rcon "save-on"
+
+## Delete older backups
+find {{ minecraft_backups_dir }}/ -type f -mtime +7 -name '*.gz' -delete

@@ -12,10 +12,6 @@
         rule: allow
         port: ssh
 
-    - ufw:
-        rule: allow
-        port: http
-
     - name: Allow NFS hosts
       ufw:
         rule: allow

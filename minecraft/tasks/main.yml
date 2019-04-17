@@ -2,10 +2,19 @@
 # tasks file for minecraft
 - include_tasks: packages.yml
 
+# Install Java
 - include_tasks: setup-java.yml
 
+# Install Vanilla Minecraft
 - include_tasks: server-vanilla.yml
   when: minecraft_flavor == "vanilla"
 
+# Install Minecraft Forge
 - include_tasks: server-forge.yml
   when: minecraft_flavor == "forge"
+
+# Add crontab backup script
+- include_tasks: backup.yml
+
+# Setup Firewall rules
+- include_tasks: ufw.yml
